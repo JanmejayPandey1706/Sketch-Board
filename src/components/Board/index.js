@@ -13,13 +13,27 @@ const Board = () => {
   const { activeMenuItem, actionMenuItem } = useSelector((state) => state.menu);
   const { color, size } = useSelector((state) => state.toolbox[activeMenuItem]);
 
+  //download or undo or redo functionality
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
     if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
-      const URL = canvas.toDataURL();
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+      const tempContext = tempCanvas.getContext("2d");
+
+      // Draw white background on temporary canvas
+      tempContext.fillStyle = "#ffffff";
+      tempContext.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
+      // Draw content from original canvas
+      tempContext.drawImage(canvas, 0, 0);
+
+      // Download the image from the temporary canvas
+      const URL = tempCanvas.toDataURL();
       const anchor = document.createElement("a");
       anchor.href = URL;
       anchor.download = "sketch.jpg";
@@ -52,7 +66,6 @@ const Board = () => {
     };
 
     const handleChangeConfig = (config) => {
-      console.log("config", config);
       changeConfig(config.color, config.size);
     };
     changeConfig(color, size);
