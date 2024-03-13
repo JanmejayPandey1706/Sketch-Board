@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./index.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { MENU_ITEMS } from "@/Constant";
-import { menuItemClick } from "@/slices/menuSlice";
+import { menuItemClick, actionItemClick } from "@/slices/menuSlice";
 import cx from "classnames";
 
 const Menu = () => {
@@ -18,6 +18,7 @@ const Menu = () => {
   const handleMenuClick = (itemName) => {
     dispatch(menuItemClick(itemName));
   };
+
   const handleActionItemClick = (itemName) => {
     dispatch(actionItemClick(itemName));
   };
