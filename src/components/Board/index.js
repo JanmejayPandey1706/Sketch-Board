@@ -17,7 +17,7 @@ const Board = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
 
     if (actionMenuItem === MENU_ITEMS.DOWNLOAD) {
       const tempCanvas = document.createElement("canvas");
@@ -58,7 +58,7 @@ const Board = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
 
     const changeConfig = (color, size) => {
       context.strokeStyle = color;
@@ -77,7 +77,7 @@ const Board = () => {
   useLayoutEffect(() => {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
+    const context = canvas.getContext("2d", { willReadFrequently: true });
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
